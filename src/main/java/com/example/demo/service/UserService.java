@@ -55,7 +55,7 @@ public class UserService  {
     public String addUser(SignupForm form) {
         Optional<UserData> userInfoExistedOpt = repository.findByEmail(form.getEmail());
         if (userInfoExistedOpt.isPresent()) {
-            return "User already exists";
+            return "すでに登録されています";
         }
 
         UserData userData = new UserData();
@@ -68,7 +68,7 @@ public class UserService  {
         userData.setStoreId(form.getStoreId());
 
         repository.save(userData);
-        return "User added successfully";
+        return "ユーザー登録が成功しました";
     }
 
     public UserData getUserInfo(String email) {

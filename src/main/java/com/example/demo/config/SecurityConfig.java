@@ -55,6 +55,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .requestMatchers("/signup").permitAll()
+            .requestMatchers("/signin").permitAll()
             .requestMatchers("/home").permitAll()
             .requestMatchers("/products/{product_category_id}").permitAll()
             .requestMatchers("/low_categories/{sub_category_id}").permitAll()

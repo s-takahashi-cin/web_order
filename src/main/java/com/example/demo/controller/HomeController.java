@@ -22,6 +22,8 @@ import com.example.demo.repo.PositionRepo;
 import com.example.demo.repo.StoreRepo;
 import com.example.demo.repo.UserInfoRepo;
 
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -45,6 +47,15 @@ public class HomeController {
 
 	}
 
+
+    @GetMapping("/home")
+    public String home(Model model, HttpSession session) {
+        UserData user = (UserData) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+        }
+        return "home";
+    }
 
     @GetMapping("/user_info/{id}")
     public String userInfo(@PathVariable Long id, Model model) {

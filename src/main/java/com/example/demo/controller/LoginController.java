@@ -43,13 +43,4 @@ public class LoginController {
             return "redirect:/signin";
         }
     }
-
-    @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
-        UserData user = (UserData) session.getAttribute("user");
-        if (user != null) {
-            model.addAttribute("user", user);
-        }
-        return "home";
-    }
 }
