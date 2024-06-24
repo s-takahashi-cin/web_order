@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.entity.OrderDetails;
 import com.example.demo.entity.Products;
 import com.example.demo.entity.StoreData;
+import com.example.demo.entity.UserData;
 import com.example.demo.form.OrderForm;
 import com.example.demo.repo.OrderDetailRepo;
 import com.example.demo.repo.OrderFormRepo;
 import com.example.demo.repo.ProductRepo;
 import com.example.demo.repo.StoreRepo;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @Controller
@@ -51,7 +54,15 @@ public class OrderController {
 
     
     @GetMapping("/orderForm")
-    public String orderForm(Model model, @ModelAttribute("cart") List<OrderDetails> cart) {
+    public String orderForm(Model model, @ModelAttribute("cart") List<OrderDetails> cart, HttpSession session) {
+        UserData user = (UserData) session.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+            System.out.println("カートにログインしているユーザー: " + user.getUsername());
+        } else {
+            System.out.println("ユーザーがログインしていません。");
+            return "redirect:/login";
+        }
         model.addAttribute("cart", cart);
         return "orderForm";
     }
@@ -61,7 +72,7 @@ public class OrderController {
     @PostMapping("/orderComplete")
     public String orderComplete(@RequestParam("storeId") Long storeId,
                                 @RequestParam("id") String id,
-                                @RequestParam("name") String name,
+                                @RequestParam("name") String name, //商品名
                                 @RequestParam("quantities") List<Integer> quantities,
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("totalAmount") double totalAmount,

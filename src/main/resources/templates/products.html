@@ -88,12 +88,15 @@
         <div class="grid-item" th:each="product: ${products}">
           <p th:text="${product.name}"></p>
           <p th:text="${product.body}"></p>
-          <p th:text="${product.retailPrice} + '円'" class="product-price"></p>
+          <p
+            th:text="${productPrices[product.id]} + '円'"
+            class="product-price"
+          ></p>
           <button
             class="add-to-cart-button"
             th:data-product-id="${product.id}"
             th:data-product-name="${product.name}"
-            th:data-product-price="${product.retailPrice}"
+            th:data-product-price="${productPrices[product.id]}"
           >
             カートに追加
           </button>
@@ -101,7 +104,10 @@
       </div>
     </div>
     <div class="back_button">
-      <a th:href="@{/home}">戻る</a>
+      <a th:href="@{/top_categories}">戻る</a>
+    </div>
+    <div class="back_button">
+      <a th:href="@{/home}">ホーム</a>
     </div>
     <div id="myModal" class="modal">
       <div class="modal-content">

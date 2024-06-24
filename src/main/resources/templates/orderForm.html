@@ -46,32 +46,16 @@
           <tr>
             <td>店舗</td>
             <td>
-              <select name="storeId">
-                <option value="1">渋谷店</option>
-                <option value="2">新宿店</option>
-                <option value="3">池袋店</option>
-              </select>
+              <span
+                th:text="${user.storeId == 1 ? '渋谷店' : (user.storeId == 2 ? '新宿店' : (user.storeId == 3 ? '池袋店' : '未設定'))}"
+              ></span>
+              <input type="hidden" name="storeId" th:value="${user.storeId}" />
             </td>
           </tr>
           <tr>
             <td>名前</td>
-            <td>
-              <input
-                type="text"
-                name="lastName"
-                th:value="${userLastName}"
-                required
-              />
-            </td>
-
-            <td>
-              <input
-                type="text"
-                name="lastName"
-                th:value="${userLastName}"
-                required
-              />
-            </td>
+            <td th:text="${user.lastName}"></td>
+            <input type="hidden" name="lastName" th:value="${user.lastName}" />
           </tr>
           <tr>
             <td>注文内容</td>
@@ -87,6 +71,9 @@
         </table>
         <input type="submit" value="注文を確定する" />
       </form>
+    </div>
+    <div class="back_button">
+      <a th:href="@{/home}">戻る</a>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {

@@ -21,33 +21,33 @@ public class UserData implements UserDetails {
     private String email;
     private String phone;
 
-    @Column(name = "position_id")
+    @Column(name = "position_id", insertable = false, updatable = false)
     private Long positionId;
 
-    @Column(name = "authority_id")
+    @Column(name = "authority_id", insertable = false, updatable = false)
     private Long authorityId;
 
-    @Column(name = "store_id")
+    @Column(name = "store_id", insertable = false, updatable = false)
     private Long storeId;
 
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", referencedColumnName = "id", insertable=false, updatable=false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
     private StoreData store;
 
     @Transient
     private String storeName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "position_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
     private PositionData position;
 
     @Transient
     private String positionName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "authority_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "authority_id", referencedColumnName = "id")
     private AuthorityData authority;
 
     @Transient

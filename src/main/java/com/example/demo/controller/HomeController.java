@@ -53,6 +53,7 @@ public class HomeController {
         UserData user = (UserData) session.getAttribute("user");
         if (user != null) {
             model.addAttribute("user", user);
+            System.out.println("ログインしているユーザー: " + user.getUsername());
         }
         return "home";
     }

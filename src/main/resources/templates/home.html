@@ -37,9 +37,24 @@
         color: #333;
         font-weight: bold;
       }
+      .welcome {
+        text-align: center;
+      }
+      .hide {
+        display: none;
+      }
     </style>
   </head>
   <body>
+    <body>
+      <div th:if="${user}">
+        <h1 class="welcome">
+          こんにちは <span th:text="${user.lastName}"></span>様
+        </h1>
+        <p class="hide">権限: <span th:text="${user.authorityName}"></span></p>
+      </div>
+    </body>
+
     <div class="grid-container">
       <div class="grid-item" th:if="${user}">
         <a th:href="@{'/user_info/' + ${user.id}}">ユーザー情報</a>
